@@ -119,3 +119,101 @@ In this example, the `BlogPostSerializer` includes a `comments` field that is a 
 ```
 
 ```
+
+Here’s the text converted into **Markdown** format with **key concepts** highlighted for easier readability when uploaded to GitHub:
+
+````markdown
+# Custom Views with DRF Generics and Mixins
+
+## Concept Overview
+
+This concept page explores the concept of **custom views** with **generics** and **mixins**. Before we dive into it, let’s remind ourselves what these terms mean.
+
+- **View**: A function that takes a web request and returns a response. Basically, the connection between the client and the server.
+- **Generic Views**: These are provided by the **Django REST Framework (DRF)** and allow you to quickly build API views that map closely to the database models.
+- **Mixins**: These are reusable pieces of code that add functionality to views. Instead of directly defining methods like `.get()` or `.post()` in your views, you can use these mixins to add specific actions.
+
+That said, in this reading session, we will learn more about leveraging **generics** and **mixins** on **custom views**.
+
+---
+
+## Topics
+
+- **Custom Views with Mixins**
+- **Custom Views with Generics**
+
+---
+
+## Learning Objectives
+
+- Understand how to create **custom views**.
+- Understand how to create **custom views** with DRF’s **generics**.
+- Understand how to create **custom views** with **mixins**.
+
+---
+
+## Custom Views with DRF’s Generics
+
+**Generic views** in DRF are classes that encapsulate common patterns for **CRUD (Create, Read, Update, Delete)** operations. These views provide default implementations for handling HTTP methods like `GET`, `POST`, `PUT`, `PATCH`, and `DELETE`. They abstract away repetitive code and promote **code reuse**.
+
+To create **custom views** with DRF’s generics, you need to define a class that inherits from the `GenericAPIView` class. This class extends from the `APIView` class, adding commonly required behavior for standard **list** and **detail** views.
+
+Here is an example of **custom views with generics**:
+
+```python
+from rest_framework import generics
+from .models import Book  # Replace with your working model
+from .serializers import BookSerializer  # Replace with your project's serializer
+
+class CustomBookCreateView(generics.CreateAPIView):
+    # Can be any name, ensure to align with your project as this is a sample example
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+
+class CustomBookListView(generics.ListAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+```
+````
+
+---
+
+## Custom Views with Mixins
+
+**Mixins** are reusable components that can be combined with **generic views** to add specific behaviors, such as **authentication**, **permission checks**, or **custom logic**.
+
+To implement **mixins** in Django, you can create a separate class for each mixin and then inherit it within the class where you want to incorporate the functionality. For instance, to utilize the `LoginRequiredMixin` in a view, you would define the mixin like this:
+
+```python
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views import View
+
+class MyView(LoginRequiredMixin, View):
+    login_url = '/login/'
+    redirect_field_name = 'redirect_to'
+
+    def get(self, request):
+        # Your view logic here
+```
+
+---
+
+## Additional Resources
+
+- [Mixins](https://intranet.alxswe.com/rltoken/sYdQ1CbAT4H1K7H3cgk7iQ)
+- [Generic Views](https://intranet.alxswe.com/rltoken/5pXHw1AdQC9L2LusDc6ReA)
+- [DRF - Generic views video](https://intranet.alxswe.com/rltoken/bKdpR4U_P3QXS0lDmqxT0Q)
+
+```
+
+---
+
+### Key Highlights
+
+- **Views**: The connection between the client and the server.
+- **Generic Views**: DRF-provided classes for quick API development.
+- **Mixins**: Reusable components to add functionality to views.
+- **Custom Views**: Combining generics and mixins for tailored API behavior.
+
+This Markdown format is clean, well-structured, and highlights **key concepts** for easier readability on GitHub. Let me know if you need further adjustments! 😊
+```
